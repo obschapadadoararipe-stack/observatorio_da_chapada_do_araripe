@@ -1,12 +1,14 @@
 library(shiny)
-library(terra)
+library(raster)
 library(leaflet)
 library(sf)
+library(sp)
+library(rsconnect)
 
 # -------------------------
 # Chapada do Araripe bbox
 # -------------------------
-bbox_ext <- ext(
+bbox_ext <- extent(
   -41.105201, -38.971922,
   -7.943965,  -6.999838
 )
@@ -78,8 +80,20 @@ ui <- fluidPage(
                                  style="text-align:center; margin-bottom:15px;"
                                ),
                                
+                               # 🔽 SLIDER MOVED HERE
+                               div(style="text-align:center; margin-bottom:10px;",
+                                   div(style="display:inline-block;width:60%;",
+                                       sliderInput("year","",
+                                                   min=min(years_num),
+                                                   max=max(years_num),
+                                                   value=max(years_num),
+                                                   step=1, sep=""
+                                       )
+                                   )
+                               ),
+                               
                                # Map
-                               leafletOutput("mapGrouped", height = 600)
+                               leafletOutput("mapGrouped", height = 350)
                         ),
                         
                         column(3,
@@ -93,23 +107,6 @@ ui <- fluidPage(
                                    tags$li(span(style="color:gray;font-weight:bold;","■ "), "Sem Vegetação"),
                                    tags$li(span(style="color:blue;font-weight:bold;","■ "), "Água")
                                  )
-                               )
-                        )
-                      ),
-                      
-                      # Slider below the map
-                      fluidRow(
-                        column(12,
-                               div(style="text-align:center;",
-                                   div(style="display:inline-block;width:60%;",
-                                       sliderInput("year","",
-                                                   min=min(years_num),
-                                                   max=max(years_num),
-                                                   value=max(years_num),
-                                                   step=1, sep=""
-                                       ),
-                                       tags$p("Deslize para observar as mudanças ao longo dos anos")
-                                   )
                                )
                         )
                       )
@@ -158,7 +155,7 @@ ui <- fluidPage(
                       tags$h3("Processamento de Dados"),
                       tags$p(
                         "Todo o processamento dos dados raster e vetoriais foi realizado em R, utilizando os pacotes ",
-                        tags$b("terra"), ", ", tags$b("sf"), " e ", tags$b("elevatr"), 
+                        tags$b("raster"), ", ", tags$b("sf"), " e ", tags$b("elevatr"), 
                         ". O site interativo foi desenvolvido em R com o pacote ", tags$b("shiny"), " e utiliza ", tags$b("leaflet"), " para visualização dos mapas."
                       )
                       
@@ -175,7 +172,7 @@ ui <- fluidPage(
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       tags$h3(
-                        "Iremos incluir informações relevantes no site do Observatório!",
+                        "Queremos incluir mais mapas e informações relevantes no Observatório!",
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       
@@ -196,7 +193,7 @@ ui <- fluidPage(
   # FOOTER
   # =========================
   tags$footer(
-    "Por um desenvolvimento ordenado da região.",
+    "Por um desenvolvimento ordenado na região. Contato:obschapadadoararipe@gmail.com",
     style = "text-align:center; padding:15px; font-size:14px; color:gray; border-top:1px solid #ccc; margin-top:20px;"
   )
 )
@@ -208,11 +205,11 @@ server <- function(input, output, session){
   
   current_raster <- reactive({
     req(input$year)
-    crop(rast(raster_files[as.character(input$year)]), bbox_ext)
+    crop(raster(raster_files[as.character(input$year)]), bbox_ext)
   })
   
   grouped_raster <- reactive({
-    classify(current_raster(), group_mat, others=NA)
+    reclassify(current_raster(), group_mat)
   })
   
   # render once
@@ -230,7 +227,7 @@ server <- function(input, output, session){
   observe({
     
     pal <- colorFactor(
-      c("darkgreen","red","yellow","gray","blue"),
+      c("green4","red","yellow2","gray","blue"),
       domain = 1:5
     )
     
