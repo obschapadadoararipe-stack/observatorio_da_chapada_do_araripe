@@ -1,0 +1,63 @@
+---
+title: "Topografia da Chapada do Araripe"
+author: "Victor Arraes Rocha Felix"
+output: html_document
+date: "2026-02-08"
+---
+
+
+```{r}
+library(elevatr)
+library(sf)
+library(terra)
+
+# Define your region as an sf polygon
+region_sf <- st_as_sf(st_sfc(
+  st_polygon(list(matrix(c(
+    -41.105201, -7.84,
+    -41.105201, -7.15,
+    -38.971922, -7.15,
+    -38.971922, -7.84,
+    -41.105201, -7.84
+  ), ncol=2, byrow=TRUE))),
+  crs=4326
+))
+
+# Get elevation data at 90m resolution
+elev <- get_elev_raster(region_sf, z=12)  
+elev_terra <- rast(elev)
+
+# Keep only elevations above 500m
+elev_above500 <- classify(elev_terra, matrix(c(-Inf, 650, NA, 650, Inf, 1), ncol=3, byrow=TRUE))
+
+# Plot
+plot(elev_above500, col="darkgreen", main="Elevation > 650 m")
+```
+
+
+Selecionar a area correspondente a Chapada do Araripe e salvar o shapefile
+
+```{r}
+
+# Identify contiguous areas (patches)
+patches_raster <- patches(elev_above500, directions = 4)
+
+#Convert patches to polygons
+patches_vect <- as.polygons(patches_raster)
+patches_vect <- st_as_sf(patches_vect)
+
+#Calculate area in UTM (for accurate area)
+patches_vect <- st_transform(patches_vect, 32724)  # UTM zone for NE Brazil
+patches_vect$area <- st_area(patches_vect)
+
+# Keep the two largest patches
+chapada <- patches_vect %>%
+  slice_max(area, n = 1)
+
+# Plot
+plot(st_geometry(chapada), col="darkgreen", main="Largest 2 contiguous areas > 650 m")
+
+
+# Save as shapefile
+st_write(chapada, "chapada_above650.shp", delete_dsn = TRUE)
+```
