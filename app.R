@@ -172,13 +172,13 @@ ui <- fluidPage(
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       tags$h3(
-                        "Venham desenvolver juntos materiais, mapas e análises com informações relevantes e compartilhar no Observatório!",
+                        "Venham desenvolver juntos materiais, mapas e análises e compartilhar no Observatório!",
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       
                       
                       tags$a(
-                        "Quer participar? Entre em contato!",
+                        "Quer contribuir e/ou fazer parte da equipe? Entre em contato!",
                         href="https://forms.gle/JfxvYWxu4feohTy3A",
                         target="_blank",
                         style="font-weight:bold;font-size:16px; display:block; text-align:center; margin-top:15px;"
@@ -193,7 +193,7 @@ ui <- fluidPage(
                         style="text-align:left; margin-bottom:2px;"
                       ),
                       tags$h5(
-                        "Pesquisador & Programador | Mestre em Geografia",
+                        "Desenvolvedor & Pesquisador | Mestre em Geografia",
                         style="text-align:left; margin-bottom:4px;"
                       ),
                       tags$h4(
