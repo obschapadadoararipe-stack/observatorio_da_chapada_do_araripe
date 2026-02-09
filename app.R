@@ -74,9 +74,9 @@ ui <- fluidPage(
                       fluidRow(
                         column(9,
                                # Title above the map
-                               tags$h3("Atencão meu povo!", style="text-align:center;"),
+                               tags$h3("Atenção meu povo!", style="text-align:center;"),
                                tags$p(
-                                 "O mapa mostra as mudanças de uso e cobertura do solo entre 2000 e 2024. Observe os anos deslizando o controle abaixo e note as alarmantes alterações!",
+                                 "O mapa mostra as mudanças de uso e cobertura do solo entre 2000 e 2024. Use o controle abaixo e para ver as alarmantes alterações!",
                                  style="text-align:center; margin-bottom:15px;"
                                ),
                                
@@ -164,27 +164,49 @@ ui <- fluidPage(
              # =========================
              # TAB CONTRIBUA
              # =========================
-             tabPanel("Contribua",
+             tabPanel("Participe",
                       
                       tags$h2("Participe!", style="text-align:center;"),
                       tags$h3(
-                        "Estamos abertos para contribuições de líderes comunitários, estudantes, pesquisadores, professores, gestores e de toda a população interessada em contribuir para uma ocupação consciente deste nosso território ancestral.",
+                        "Queremos colaborar com líderes comunitários, estudantes, pesquisadores, professores, gestores e de toda a população interessada em contribuir para uma ocupação consciente deste nosso território ancestral.",
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       tags$h3(
-                        "Queremos incluir mais mapas e informações relevantes no Observatório!",
+                        "Queremos desenvolver mais materiais, mapas e análises com informações relevantes no Observatório!",
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       
                       
                       tags$a(
-                        "Entre em contato!",
+                        "Quer participar? Entre em contato!",
                         href="https://forms.gle/JfxvYWxu4feohTy3A",
                         target="_blank",
                         style="font-weight:bold;font-size:16px; display:block; text-align:center; margin-top:15px;"
                       )
+             ),
+             # =========================
+             # TAB equipe
+             # =========================
+             tabPanel("Equipe",
+                      
+                      tags$h3("Equipe:", style="text-align:left;"),
+                      tags$h4(
+                        "Victor Arraes Rocha Felix",
+                        style="text-align:left; margin-bottom:2px;"
+                      ),
+                      tags$h5(
+                        "Pesquisador & Programador | Mestre em Geografia",
+                        style="text-align:left; margin-bottom:4px;"
+                      ),
+                      tags$h4(
+                        "------",
+                        style="text-align:left; margin-bottom:2px;"
+                      ),
+                      tags$h5(
+                        "----- | -----",
+                        style="text-align:left; margin-bottom:2px;"
+                      )
              )
-             
            )
     )
   ),
@@ -193,7 +215,7 @@ ui <- fluidPage(
   # FOOTER
   # =========================
   tags$footer(
-    "Por um desenvolvimento ordenado na região. Contato:obschapadadoararipe@gmail.com",
+    "Por um desenvolvimento ordenado na Chapada do Araripe. Contato:obschapadadoararipe@gmail.com",
     style = "text-align:center; padding:15px; font-size:14px; color:gray; border-top:1px solid #ccc; margin-top:20px;"
   )
 )
