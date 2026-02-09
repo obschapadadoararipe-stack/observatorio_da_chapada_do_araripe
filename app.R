@@ -168,11 +168,11 @@ ui <- fluidPage(
                       
                       tags$h2("Participe!", style="text-align:center;"),
                       tags$h3(
-                        "Queremos colaborar com líderes comunitários, estudantes, pesquisadores, professores, gestores e de toda a população interessada em contribuir para uma ocupação consciente deste nosso território ancestral.",
+                        "Queremos colaborar com as várias comunidades da Chapada do Araripe, incluindo agricultores, estudantes, gestores e pesquisadores que queiram construir meios para uma ocupação consciente deste nosso território ancestral.",
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       tags$h3(
-                        "Queremos desenvolver mais materiais, mapas e análises com informações relevantes no Observatório!",
+                        "Venham desenvolver juntos materiais, mapas e análises com informações relevantes e compartilhar no Observatório!",
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       
@@ -188,8 +188,6 @@ ui <- fluidPage(
              # TAB equipe
              # =========================
              tabPanel("Equipe",
-                      
-                      tags$h3("Equipe:", style="text-align:left;"),
                       tags$h4(
                         "Victor Arraes Rocha Felix",
                         style="text-align:left; margin-bottom:2px;"
@@ -199,11 +197,11 @@ ui <- fluidPage(
                         style="text-align:left; margin-bottom:4px;"
                       ),
                       tags$h4(
-                        "------",
+                        "",
                         style="text-align:left; margin-bottom:2px;"
                       ),
                       tags$h5(
-                        "----- | -----",
+                        "",
                         style="text-align:left; margin-bottom:2px;"
                       )
              )
