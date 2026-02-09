@@ -1,1 +1,1 @@
-Este eh o observatorio da chapada do Araripe. Ele utiliza dados abertos e nalises geograficas para contribuir com um desenvolvimento organizado na regiao. O projeto eh desenvoldido por Victor Arraes Rocha Felix, mestre em geografia na Universidade da Georgia.
+Este eh o observatorio da chapada do Araripe. Ele utiliza dados abertos e analises geograficas para contribuir com um desenvolvimento organizado na regiao. O projeto eh desenvoldido por Victor Arraes Rocha Felix, mestre em geografia na University of Georgia, Estados Unidos.
