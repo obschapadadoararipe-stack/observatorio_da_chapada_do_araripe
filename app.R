@@ -76,7 +76,7 @@ ui <- fluidPage(
                                # Title above the map
                                tags$h3("Atenção meu povo!", style="text-align:center;"),
                                tags$p(
-                                 "O mapa mostra as mudanças de uso e cobertura do solo entre 2000 e 2024. Use o controle abaixo e para ver as alarmantes alterações!",
+                                 "O mapa mostra as mudanças de uso e cobertura do solo entre 2000 e 2024. Use o controle abaixo para ver as alarmantes alterações!",
                                  style="text-align:center; margin-bottom:15px;"
                                ),
                                
@@ -172,17 +172,17 @@ ui <- fluidPage(
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       tags$h3(
-                        "Queremos colaborar com as várias comunidades da Chapada do Araripe, incluindo agricultores, estudantes, gestores e pesquisadores que queiram construir meios para uma ocupação consciente deste nosso território ancestral.",
+                        "A ideia é que ele possa contribuir com as várias comunidades que vivem na Chapada do Araripe, colaborando com agricultores, estudantes, gestores, pesquisadores e toda a população interessada em construir meios para uma ocupação consciente deste nosso território ancestral.",
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       tags$h3(
-                        "Venham desenvolver juntos materiais, mapas e análises e compartilhar no Observatório!",
+                        "O plano é desenvolver mais mapas, análises e indicadores! Caso queira contribuir e/ou entrar para o time do Observatório da Chapada do Araripe entre em contato!",
                         style="text-align:center; margin-bottom:15px;"
                       ),
                       
                       
                       tags$a(
-                        "Quer contribuir e/ou fazer parte da equipe? Entre em contato!",
+                        "Link para entrar em contato!",
                         href="https://forms.gle/JfxvYWxu4feohTy3A",
                         target="_blank",
                         style="font-weight:bold;font-size:16px; display:block; text-align:center; margin-top:15px;"
