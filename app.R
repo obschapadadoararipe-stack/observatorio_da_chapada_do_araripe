@@ -118,7 +118,7 @@ ui <- fluidPage(
              # =========================
              tabPanel("Dados e Métodos",
                       
-                      tags$h3("Fonte"),
+                      tags$h3("Fonte dos dados:"),
                       tags$p(
                         "Dados do MapBiomas – Coleção 10 da série anual de Mapas de Cobertura e Uso da Terra do Brasil, acessado em 07/02/2026 através do link: ",
                         tags$a(
@@ -134,7 +134,7 @@ ui <- fluidPage(
                         )
                       ),
                       
-                      tags$h3("Agrupamento das Classes"),
+                      tags$h3("Os dados foram agrupados da seguinte forma:"),
                       tags$ul(
                         tags$li(tags$b("Vegetação Natural:")," Formação Florestal, Formação Savânica ou Formação Campestre"),
                         tags$li(tags$b("Agropecuária:")," Pastagem, Mosaico de Usos, Soja ou Outras Lavouras Temporarias"),
@@ -143,7 +143,7 @@ ui <- fluidPage(
                         tags$li(tags$b("Água:")," Rios e lagos")
                       ),
                       
-                      tags$p("Apenas classes realmente presentes nos rasters da região foram consideradas."),
+                      tags$p("*Apenas classes presentes nos rasters da região foram consideradas."),
                       
                       tags$h3("Topografia (> 650 m)"),
                       tags$p(
@@ -155,8 +155,7 @@ ui <- fluidPage(
                       tags$h3("Processamento de Dados"),
                       tags$p(
                         "Todo o processamento dos dados raster e vetoriais foi realizado em R, utilizando os pacotes ",
-                        tags$b("raster"), ", ", tags$b("sf"), " e ", tags$b("elevatr"), 
-                        ". O site interativo foi desenvolvido em R com o pacote ", tags$b("shiny"), " e utiliza ", tags$b("leaflet"), " para visualização dos mapas."
+                        tags$b("raster"), ", ", tags$b("sf"), " e ", tags$b("elevatr")
                       )
                       
              ),
