@@ -9,10 +9,10 @@ library(rsconnect)
 # Chapada do Araripe bbox
 # -------------------------
 bbox_ext <- extent(
-  -41.105201, -38.971922,
-  -7.943965,  -6.999838
+  -41, -38.8,
+  -8,  -6.8
 )
-
+#-41.1, -8.1, -38, -6.1
 # -------------------------
 # Raster files by year
 # -------------------------
@@ -79,11 +79,11 @@ ui <- fluidPage(
                                # Title above the map
                                tags$h3("Atenção meu povo!", style="text-align:center;"),
                                tags$p(
-                                 "O mapa mostra as mudanças de uso e cobertura do solo entre 2000 e 2024. Use o controle abaixo para ver as alarmantes alterações!",
+                                 "O mapa mostra as mudanças de uso e cobertura do solo na Area de Protecao Ambiental (APA) e Floresta Nacional do Araripe (FLONA) entre 2000 e 2024. Use o controle abaixo para ver as alarmantes alterações!",
                                  style="text-align:center; margin-bottom:15px;"
                                ),
                                
-                               # 🔽 SLIDER MOVED HERE
+                               # 
                                div(style="text-align:center; margin-bottom:10px;",
                                    div(style="display:inline-block;width:60%;",
                                        sliderInput("year","",
@@ -137,27 +137,27 @@ ui <- fluidPage(
              # =========================
              # TAB DADOS
              # =========================
-             tabPanel("Metodos, dados e referencias",
+             tabPanel("Métodos, Dados e Referências",
                       
-                      tags$h3("Ciencia e tecnologias livres"),
+                      tags$h3("Ciência e Tecnologias Livres"),
                       tags$p(
-                        "O Observatório da Chapada do Araripe esta publicado como um software cientifico para analises ambientais e sociais baseado em ciencia de dados e tecnologias livres. Isto facilita citacoes e transparancia metodologica, incluindo as referencias que usamos para desenvolver este projeto. A publicaco tambem permite um desenvolvimento progressivo do Observatorio, como a inclusao posterior de coautores em caso de colaboracoes significaticas no desenvolvimento desta tecnologia.",
+                        "O Observatório da Chapada do Araripe está publicado como um software científico para análises ambientais e sociais, baseado em ciência de dados e tecnologias livres. Isso facilita citações e a transparência metodológica, incluindo as referências utilizadas no desenvolvimento deste projeto. A publicação também permite o desenvolvimento progressivo do Observatório, como a inclusão posterior de coautores em caso de colaborações significativas no aprimoramento dessa tecnologia.",
                         target = "_blank"
                       ),
                       tags$h3("Cite o nosso trabalho"),
                       tags$p(
-                        "Caso voce utilize nossas analises, escreva sobre o Observatorio ou se inspire na nossa tecnologia, voce pode nos citar da seguinte forma:xxxxx.",
+                        "Caso você escreva sobre o Observatório da Chapada do Araripe, utilize nossas análises ou se inspire em nossas tecnologias, você pode nos citar da seguinte forma: Felix, V. A. R. (2026). Observatorio da Chapada do Araripe [Software]. Zenodo.",
                           target = "_blank"
                         ),
-                      tags$h3("Sobre os dados utilizados no Observatorio"),
+                      tags$h3("Sobre os dados utilizados no Observatório"),
                       tags$p(
-                        "Para as nossas analises iniciais sobre a Chapada do Araripe e areas adjacentes nos utilizados dados do MapBiomas – Coleção 10 da série anual de Mapas de Cobertura e Uso da Terra do Brasil, acessado em 07/02/2026 através do link: ",
+                        "Para as nossas análises iniciais sobre a Chapada do Araripe e áreas adjacentes, utilizamos dados do MapBiomas – Coleção 10 da série anual de Mapas de Cobertura e Uso da Terra do Brasil, baixados em uma escala espacial de 300 m² em 07/02/2026 por meio do link:",
                         tags$a(
                           href = "https://developers.google.com/earth-engine/datasets/catalog/projects_mapbiomas-public_assets_brazil_lulc_v1",
-                          "Google Earth Engine – MapBiomas",
+                          "Google Earth Engine – MapBiomas.",
                           target = "_blank"
                         ),
-                        ". Artigo sobre os dados disponível em: ",
+                        "Artigo sobre os dados disponível em: ",
                         tags$a(
                           href = "https://doi.org/10.3390/rs12172735",
                           "DOI: 10.3390/rs12172735",
@@ -165,7 +165,7 @@ ui <- fluidPage(
                         )
                       ),
                       
-                      tags$h3("Os dados foram agrupados da seguinte forma:"),
+                      tags$h4("Os dados foram agrupados da seguinte forma:"),
                       tags$ul(
                         tags$li(tags$b("Vegetação Natural:")," Formação Florestal, Formação Savânica ou Formação Campestre"),
                         tags$li(tags$b("Agropecuária:")," Pastagem, Mosaico de Usos, Soja ou Outras Lavouras Temporarias"),
@@ -176,18 +176,23 @@ ui <- fluidPage(
                       
                       tags$p("*Apenas classes presentes nos rasters da região foram consideradas."),
                       
-                      tags$h3("Topografia (> 650 m)"),
+                      tags$h3("Chapada do Araripe"),
                       tags$p(
-                        "O mapa da Chapada do Araripe foi feito usando áreas acima de 650 metros de altitude e foi gerado em R a partir de dados de elevação obtidos via pacote ",
-                        tags$a("elevatr", href="https://cran.r-project.org/package/elevatr", target="_blank"),
-                        ", que acessa modelos digitais de elevação globais (DEM) com dados abertos."
+                        "A Chapada do Araripe está delimitada pela Área de Proteção Ambiental (APA) e pela Floresta Nacional do Araripe (FLONA), de acordo com dados da ",
+                      tags$a("Secretaria de Meio Ambiente e Mudança do Clima (SEMA)", 
+                        href = "https://www.sema.ce.gov.br/cadastro-estadual-de-unidade-de-conservacao-ceuc/painel-cadastro-estadual-de-unidades-de-conservacao/downloads-de-decretos-e-poligonais-ceuc/unidades-de-conservacao-federais/", target = "_blank"),"."
                       ),
                       
                       tags$h3("Processamento de Dados"),
-                      tags$p(
-                        "Todo o processamento dos dados raster e vetoriais foi realizado em R, utilizando os pacotes ",
-                        tags$b("raster"), ", ", tags$b("sf"), " e ", tags$b("elevatr")
-                      )
+                      tags$p("Todo o processamento dos dados foi realizado utilizando a linguagem de programação ",
+                             tags$a("R", href = "https://www.r-project.org/", target = "_blank"),
+                             ". Além disso, os mapas foram elaborados com integração ao ",
+                             tags$a("Leaflet", href = "https://leafletjs.com/", target = "_blank"),
+                             ", ao ",
+                             tags$a("OpenStreetMap", href = "https://www.openstreetmap.org/", target = "_blank"),
+                             " e ao ",
+                             tags$a("CARTO", href = "https://carto.com/", target = "_blank"),
+                             ", permitindo visualizações interativas e dinâmicas.")
                       
              ),
              
@@ -196,26 +201,32 @@ ui <- fluidPage(
              # =========================
              tabPanel("Sobre o Observatório",
                       
-                      tags$h3("Missão", style="text-align:center;"),
+                      tags$h3("Missão", style="text-align:left;"),
                       tags$h4(
                         "Promover a produção, análise e divulgação de dados ambientais e sociais, bem como o monitoramento da Chapada do Araripe e cidades adjacentes, contribuindo para políticas públicas baseadas em evidências e para o desenvolvimento sustentável da região.",
-                        style="text-align:center; margin-bottom:15px;"
+                        style="text-align:left; margin-bottom:15px;"
                       ),
                       tags$h3(
                         "Visão",
-                        style="text-align:center; margin-bottom:15px;"
+                        style="text-align:left; margin-bottom:15px;"
                       ),
                       tags$h4(
                         "Tornar-se um centro de excelência em dados ambientais e sociais, apoiando políticas públicas e desenvolvimento regional ordenado.",
-                        style="text-align:center; margin-bottom:15px;"
+                        style="text-align:left; margin-bottom:15px;"
                       ),
                       tags$h3(
                         "Objetivos",
-                        style="text-align:center; margin-bottom:15px;"
+                        style="text-align:left; margin-bottom:15px;"
                       ),
                       tags$h4(
                         "Fortalecer a pesquisa científica na região; Apoiar políticas públicas e desenvolvimento sustentável; Promover educação socioambiental; Contribuir com o monitoramento da Chapada do Araripe e cidades adjacentes.",
-                        style="text-align:center; margin-bottom:15px;"
+                        style="text-align:left; margin-bottom:15px;"
+                      ),
+                      tags$h4(
+                        tagList(
+                          tags$b("Contato:"), " obscapadadoararipe@gmail.com"
+                        ),
+                        style = "text-align:left; border-top:15px; margin-bottom:15px;"
                       )
              ),
              # =========================
@@ -227,19 +238,23 @@ ui <- fluidPage(
                         style="text-align:left; margin-bottom:2px;"
                       ),
                       tags$h5(
-                        "Desenvolvedor & Pesquisador | Mestre em Geografia na University of Georgia (EUA)",
+                        "Desenvolvedor & Pesquisador | Mestre em Geografia na Universidade da Georgia (EUA)",
                         style="text-align:left; margin-bottom:4px;"
                       ),
                       tags$h4(
                         "",
-                        style="text-align:left; margin-bottom:2px;"
+                        style="text-align:center; margin-bottom:2px;"
                       ),
                       tags$h5(
-                        "",
-                        style="text-align:left; margin-bottom:2px;"
+                        ""
                       ),
+                      tags$h5(
+                        ""
+                        ,
+                        style="text-align:center; margin-bottom:2px;"
+                        ),
                       tags$a(
-                        "Link para entrar em contato!",
+                        "Link para entrar em contato",
                         href="https://forms.gle/JfxvYWxu4feohTy3A",
                         target="_blank",
                         style="font-weight:bold;font-size:16px; display:block; text-align:center; margin-top:15px;"
@@ -253,8 +268,12 @@ ui <- fluidPage(
   # FOOTER
   # =========================
   tags$footer(
-    "Por um desenvolvimento ordenado na Chapada do Araripe. Contato:obschapadadoararipe@gmail.com",
-    style = "text-align:center; padding:15px; font-size:14px; color:gray; border-top:1px solid #ccc; margin-top:20px;"
+    "Felix, V. A. R. (2026). Observatório da Chapada do Araripe [Software]. Zenodo.",
+    style = "text-align:center; padding:5px; font-size:14px; color:gray; border-top:1px solid #ccc; margin-top:20px;"
+  ),
+  tags$footer(
+    "",
+    style = "text-align:center; padding:5px; font-size:14px; color:gray;"
   )
 )
 
