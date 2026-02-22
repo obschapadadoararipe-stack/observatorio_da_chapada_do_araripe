@@ -36,6 +36,15 @@ chapada_do_araripe <- st_transform(chapada_do_araripe, 4326)
 flona_chapada_do_araripe <- st_read("mapa_da_chapada/FLONA_araripe_apodi/FLONA_araripe_apodi.shp", quiet = TRUE)
 flona_chapada_do_araripe <- st_transform(flona_chapada_do_araripe, 4326)
 
+
+# garantir geometria válida (evita erros no difference)
+chapada_do_araripe <- st_make_valid(chapada_do_araripe)
+flona_chapada_do_araripe <- st_make_valid(flona_chapada_do_araripe)
+
+# APA sem FLONA (o que você quer)
+apa_sem_flona <- st_difference(chapada_do_araripe, flona_chapada_do_araripe)
+
+
 # -------------------------
 # Classes realmente presentes
 # -------------------------
@@ -108,7 +117,7 @@ ui <- fluidPage(
                                # Title above the map
                                tags$h3("Atenção meu povo!", style="text-align:center;"),
                                tags$p(
-                                 "O mapa mostra as mudanças de uso e cobertura do solo na Área de Proteção Ambiental (APA) da Chapada do Araripe e na Floresta Nacional do Araripe (FLONA) entre 2010 e 2024. Houve um aumento de cerca de 800 km² nas áreas de agricultura ou pastagem nesse período. Use o controle abaixo para visualizar as alterações ao longo dos anos.",
+                                 "O mapa mostra as mudanças de uso e cobertura do solo na Área de Proteção Ambiental (APA) da Chapada do Araripe e na Floresta Nacional do Araripe (FLONA) entre 2010 e 2024. Houve um aumento de cerca de 800 km² nas áreas de agricultura ou pastagem na APA nesse período. Use o controle abaixo para visualizar as alterações ao longo dos anos.",
                                  style="text-align:center; margin-bottom:15px;"
                                ),
                                
@@ -171,7 +180,7 @@ ui <- fluidPage(
              tabPanel("Gráficos",
                       tags$h3("Aumento anual nas áreas de Agricultura ou Pastagem"),
                       tags$p(
-                        "Valores calculados para a Área de Proteção Ambiental (APA) da Chapada do Araripe, comparados com 2010. Nossas análises iniciais indicam um aumento de aproximadamente 800 km² nas áreas utilizadas para agricultura ou pastagem entre 2011 e 2024.",
+                        "Valores calculados para a Área de Proteção Ambiental (APA) da Chapada do Araripe (sem incluir a FLONA), comparados com 2010. Nossas análises iniciais indicam um aumento de aproximadamente 800 km² nas áreas utilizadas para agricultura ou pastagem entre 2011 e 2024.",
                         tags$strong("Um aumento de cerca de 110 mil campos de futebol."), 
                       ),
                       plotOutput("areaPlot", height = "400px"),
@@ -231,7 +240,7 @@ ui <- fluidPage(
                       
                       
                       tags$h4("Mapas, Gráficos e Análises"),
-                      tags$h5("Os mapas e os gráficos foram desenvolvidos com foco na Área de Proteção Ambiental (APA) da Chapada do Araripe. Para o gráfico sobre o aumento anual das áreas de agricultura ou pastagem, calculamos a área total dessas classes em cada ano e comparamos os valores com o total observado em 2010. As estimativas foram realizadas para toda a área da APA, a qual abrange a área da FLONA. A área total de cada classe em cada ano foi estimada a partir da resolução espacial dos dados do MapBiomas utilizados, que foram de aproximadamente 9 hectares (~300 m x 300 m) por pixel."),
+                      tags$h5("Os mapas e os gráficos foram desenvolvidos com foco na Área de Proteção Ambiental (APA) da Chapada do Araripe. Para o gráfico sobre o aumento anual das áreas de agricultura ou pastagem, calculamos a área total dessas classes em cada ano e comparamos os valores com o total observado em 2010. As estimativas foram realizadas para toda a área da APA, sem incluir a área da FLONA. A área total de cada classe em cada ano foi estimada a partir da resolução espacial dos dados do MapBiomas utilizados, que foram de aproximadamente 9 hectares (~300 m x 300 m) por pixel."),
                       
                       tags$h3("Chapada do Araripe"),
                       tags$p(
@@ -322,7 +331,7 @@ ui <- fluidPage(
              # =========================
              tabPanel("Baixe os mapas e os gráficos",
                       
-                      tags$h4("Mapas do Usos do Solo e Ocupação na Área de Proteção Ambiental (APA) da Chapada do Araripe desenvolvidos pelo Observatório"),
+                      tags$h4("Mapas do Usos do Solo e Ocupação na Área de Proteção Ambiental (APA) e na Floresta Nacional do Araripe (FLONA) desenvolvidos pelo Observatório"),
                       
                       selectInput("year_download", "Escolha o ano do mapa:", choices = years_num, selected = max(years_num)),
                       downloadButton("downloadGgMap", "Baixar o mapa"),
@@ -435,7 +444,8 @@ server <- function(input, output, session){
       
       r <- raster(raster_files[as.character(yr)])
       r <- crop(r, bbox_ext)
-      r <- mask(r, as(chapada_do_araripe, "Spatial"))
+      #r <- mask(r, as(chapada_do_araripe, "Spatial"))
+      r <- mask(r, as(apa_sem_flona, "Spatial"))
       
       r_grouped <- reclassify(r, group_mat)
       
@@ -589,7 +599,7 @@ server <- function(input, output, session){
           labs(
             x = "",
             y = "Área em km²",
-            title = "Aumento nas Áreas de Agricultura\nou Pastagem desde 2010",
+            title = "Aumento nas Áreas de Agricultura\nou Pastagem desde 2011",
             subtitle = "Dados para a APA da Chapada do Araripe",
             caption = "Fonte: Dados do MapBiomas (Souza et al., 2020) analisados pelo\nObservatório da Chapada do Araripe (Felix, 2026)"
           ) +
