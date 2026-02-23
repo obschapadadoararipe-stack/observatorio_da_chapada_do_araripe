@@ -64,9 +64,7 @@ farming_classes <- c(
 )
 
 urban_classes <- c(
-  24, # Infraestrutura Urbana
-  30, # Mineração
-  75  # Outras Áreas Não Vegetadas Antrópicas
+  24 # Infraestrutura Urbana
 )
 
 no_veg_classes <- c(
@@ -75,8 +73,10 @@ no_veg_classes <- c(
   23, # Praia, Duna e Areal
   25, # Outras Áreas Não Vegetadas Naturais
   29, # Afloramento Rochoso
-  31  # Aquicultura
-)
+  31,  # Aquicultura
+  30, # Mineração
+  75  # Outras Áreas Não Vegetadas Antrópicas
+  )
 
 water_classes <- c(
   33  # Rios, Lagos e Oceano
@@ -227,14 +227,14 @@ ui <- fluidPage(
                               tags$li(tags$b("Agricultura ou Pastagem:"), 
                                       " Pastagem (15), Mosaico de Agricultura e Pastagem (21), Soja (39) ou Outras Lavouras Temporárias (41)"),
                               
-                              tags$li(tags$b("Área Urbana ou Infraestrutura:"), 
-                                      " Infraestrutura Urbana (24), Mineração (30) ou Usina Fotovoltaica (75)"),
+                              tags$li(tags$b("Área Urbana:"), 
+                                      " Infraestrutura Urbana (24)"),
                               
                               tags$li(tags$b("Água:"), 
                                       " Rios e lagos (33)"),
                               
                               tags$li(tags$b("Outros:"), 
-                                      " Silvicultura (9), Aquicultura (31), Areal (23), Outras Áreas Não Vegetadas (25), Afloramento Rochoso (29) ou Sem Dados (0)")),
+                                      "Mineração (30), Usina Fotovoltaica (75), Silvicultura (9), Aquicultura (31), Areal (23), Outras Áreas Não Vegetadas (25), Afloramento Rochoso (29) ou Sem Dados (0)")),
                       
                       tags$p("*Apenas classes presentes nos rasters da região foram consideradas."),
                       
@@ -464,7 +464,7 @@ server <- function(input, output, session){
     class_labels <- c(
       "1" = "Vegetação",
       "2" = "Agropecuária",
-      "3" = "Urbano",
+      "3" = "Área Urbana",
       "4" = "Sem Vegetação",
       "5" = "Água"
     )
@@ -509,7 +509,7 @@ server <- function(input, output, session){
         
         # cores correspondentes às classes
         class_colors <- c("green4","red","yellow2")
-        class_labels <- c("Vegetação","Agricultura ou pastagem","Urbano")
+        class_labels <- c("Vegetação","Agricultura ou pastagem","Área Urbana")
         
         # abrir dispositivo gráfico
         png(file, width = 8, height = 7, units = "in", res = 400)
